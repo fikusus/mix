@@ -22,8 +22,9 @@ export class TelegramController {
 
   @Start()
   async handleStart(@Ctx() ctx: Context): Promise<void> {
-    console.log(ctx);
-    await this.telegramService.addSubscriber(ctx.chat.id);
+    console.log('chat', ctx.chat);
+    const chat = ctx.chat;
+    await this.telegramService.addSubscriber(chat);
     await ctx.reply('Ви підписані на глобальні повідомлення!');
   }
 
@@ -61,7 +62,7 @@ export class TelegramController {
         );
       }
     });
-   /* await this.telegramService.saveMessage(
+    /* await this.telegramService.saveMessage(
       senderChatId,
       ctx.message.message_id,
     );*/

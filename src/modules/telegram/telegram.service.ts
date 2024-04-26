@@ -4,12 +4,25 @@ import { ITelegramService } from './telegram.service.interface';
 export class TelegramService implements ITelegramService {
   constructor(@InjectKnex() private readonly knex: Knex) {}
 
-  public async addSubscriber(chatId: number): Promise<void> {
+  public async addSubscriber(chat: any): Promise<void> {
+    const chatId = chat.id;
     const exists = await this.knex('subscribers')
       .where({ chat_id: chatId })
       .first();
     if (!exists) {
-      await this.knex('subscribers').insert({ chat_id: chatId });
+      let name = '';
+      const chatType = chat.type;
+      if (chatType === 'private') {
+        name = `${chat.first_name} ${chat.last_name}`;
+      }
+      if (chatType === 'group' || chatType === 'supergroup') {
+        name = chat.title;
+      }
+      await this.knex('subscribers').insert({
+        chat_id: chatId,
+        name,
+        type: chatType,
+      });
     }
   }
 

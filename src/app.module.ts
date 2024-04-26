@@ -10,7 +10,7 @@ import { join } from 'path';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'telegram-message-sender', 'build'),
+      rootPath: join(__dirname, '..', 'telegram-message-sender', 'dist'),
     }),
     TelegrafModule.forRoot({
       token: '6865099618:AAHx7h8Md_kXJAO1We2E-QnRr7kSRk3QabY', // замініть на ваш токен

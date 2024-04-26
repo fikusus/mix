@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": "./",
+    "jsx": "react",
+    "checkJs": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "~shared/*": ["./src/shared/*"],
+      "~shared": ["./src/shared"],
+      "~utils/*": ["./src/utils/*"],
+      "~utils": ["./src/utils"],
+      "~store/*": ["./src/store/*"],
+      "~store": ["./src/store"],
+      "~components/*": ["./src/components/*"],
+      "~components": ["./src/components"],
+      "~constants/*": ["./src/constants/*"],
+      "~constants": ["./src/constants"],
+      "~api/*": ["./src/api/*"],
+      "~api": ["./src/api"]
+    }
+  },
+  "exclude": ["node_modules", "builds"]
+}
