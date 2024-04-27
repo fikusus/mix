@@ -22,7 +22,13 @@ export class MessageController {
   ): Promise<any> {
     return await Promise.all(
       sendMessageForm.chatId.map(async (chatId) => {
-        await this.bot.telegram.sendMessage(chatId, sendMessageForm.text);
+        try {
+          await this.bot.telegram.sendMessage(chatId, sendMessageForm.text);
+        } catch (e) {
+          if (e.response.error_code === 403) {
+            await this.subscribersService.deleteSubscriber(chatId);
+          }
+        }
       }),
     );
   }
