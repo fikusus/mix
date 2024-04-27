@@ -1,26 +1,18 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  Inject,
-  Param,
-  ParseIntPipe,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Inject, Post } from '@nestjs/common';
 import { InjectBot } from 'nestjs-telegraf';
 import { SendMessageForm } from 'src/models/send-message.form';
-import { Telegraf } from 'telegraf';
-import { Context as TelegrafContext } from 'telegraf';
-import { TelegramService } from '../telegram/telegram.service';
-import { TELEGRAM_SERVICE_TOKEN } from '../telegram/telegram.service.interface';
+import { Telegraf, Context as TelegrafContext } from 'telegraf';
+import {
+  ISubscribersService,
+  SUBSCRIBERS_SERVICE_TOKEN,
+} from '../subscribers/subscribers.service.interface';
 
 @Controller(`api/message`)
 export class MessageController {
   constructor(
     @InjectBot() private bot: Telegraf<TelegrafContext>,
-    @Inject(TELEGRAM_SERVICE_TOKEN)
-    private readonly telegramService: TelegramService,
+    @Inject(SUBSCRIBERS_SERVICE_TOKEN)
+    private readonly subscribersService: ISubscribersService,
   ) {}
 
   @Post(`/send`)
@@ -38,6 +30,6 @@ export class MessageController {
   @Get(`/subscriptions`)
   @HttpCode(200)
   public async getSubscriptions(): Promise<any> {
-    return await this.telegramService.getSubscriptions();
+    return await this.subscribersService.getAllSubscribers();
   }
 }

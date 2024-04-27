@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 
 import { ControllersModule } from './modules/controllers/controllers.module';
-import { TelegramModule } from './modules/telegram/telegram.module';
 import { TelegrafModule } from 'nestjs-telegraf';
 import { KnexModule } from 'nestjs-knex';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { SubscribersModule } from './modules/subscribers/subscribers.module';
 
 @Module({
   imports: [
@@ -26,8 +26,8 @@ import { join } from 'path';
         },
       },
     }),
-    TelegramModule,
     ControllersModule,
+    SubscribersModule,
   ],
 })
 export class AppModule {}
